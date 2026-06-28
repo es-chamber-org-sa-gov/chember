@@ -3,61 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>আমার ইমেজ ভিউয়ার</title>
+    <title>আমার গ্যালারি</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             margin: 0;
-            padding: 20px;
+            background-color: #f0f2f5;
         }
         .container {
-            max-width: 600px;
-            margin: auto;
+            text-align: center;
             background: white;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            max-width: 90%;
         }
         img {
             max-width: 100%;
             height: auto;
-            border-radius: 5px;
+            border-radius: 8px;
             margin-top: 15px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
-        h2 {
-            color: #333;
-        }
-        .error {
-            color: red;
-            font-weight: bold;
-        }
+        h2 { color: #333; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>ডকুমেন্ট / ইমেজ ভিউয়ার</h2>
-    <hr>
-    <div id="image-container">
-        <p>লোড হচ্ছে...</p>
-    </div>
+    <h2 id="title">ছবি লোড হচ্ছে...</h2>
+    <div id="image-container"></div>
 </div>
 
 <script>
-    // URL থেকে ছবির নাম বা প্যারামিটার নেওয়ার জন্য
-    const urlParams = new URLSearchParams(window.location.search);
-    const imageName = urlParams.get('img'); // ?img=image_name.jpg থেকে নাম নিবে
+    // ১. গিটহাবের ইউজারনেম এবং রেপোজিটরি নাম এখানে দিন
+    const githubUser = "YOUR_GITHUB_USERNAME"; 
+    const repoName = "YOUR_REPO_NAME"; 
 
-    const imageContainer = document.getElementById('image-container');
+    // ২. URL থেকে ছবির নাম উদ্ধার করা (?image=filename.jpg)
+    const urlParams = new URLSearchParams(window.location.search);
+    const imageName = urlParams.get('image');
+
+    const titleElement = document.getElementById('title');
+    const container = document.getElementById('image-container');
 
     if (imageName) {
-        // এখানে আপনার আপলোড করা ছবি লোড হবে
-        imageContainer.innerHTML = `<img src="${imageName}" alt="Uploaded Image">`;
+        // গিটহাবের র-ফাইল (Raw File) এর লিংক তৈরি করা
+        const imageUrl = `https://github.com/es-chamber-org-sa-gov/chember/tree/main/File`;
+        
+        titleElement.innerText = "আপনার ফাইল:";
+        container.innerHTML = `<img src="${imageUrl}" alt="${imageName}" onerror="this.onerror=null; alert('ফাইলটি পাওয়া যায়নি!')">`;
     } else {
-        imageContainer.innerHTML = `<p class="error">কোনো ছবি খুঁজে পাওয়া যায়নি! সঠিক কিউআর কোড স্ক্যান করুন।</p>`;
+        titleElement.innerText = "দয়া করে কিউআর কোড স্ক্যান করে সঠিক লিংক দিয়ে প্রবেশ করুন।";
     }
 </script>
 
