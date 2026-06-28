@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>আমার ইমেজ ভিউয়ার</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-top: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        h2 {
+            color: #333;
+        }
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>ডকুমেন্ট / ইমেজ ভিউয়ার</h2>
+    <hr>
+    <div id="image-container">
+        <p>লোড হচ্ছে...</p>
+    </div>
+</div>
+
+<script>
+    // URL থেকে ছবির নাম বা প্যারামিটার নেওয়ার জন্য
+    const urlParams = new URLSearchParams(window.location.search);
+    const imageName = urlParams.get('img'); // ?img=image_name.jpg থেকে নাম নিবে
+
+    const imageContainer = document.getElementById('image-container');
+
+    if (imageName) {
+        // এখানে আপনার আপলোড করা ছবি লোড হবে
+        imageContainer.innerHTML = `<img src="${imageName}" alt="Uploaded Image">`;
+    } else {
+        imageContainer.innerHTML = `<p class="error">কোনো ছবি খুঁজে পাওয়া যায়নি! সঠিক কিউআর কোড স্ক্যান করুন।</p>`;
+    }
+</script>
+
+</body>
+</html>
