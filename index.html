@@ -39,9 +39,11 @@
 </div>
 
 <script>
-    // ১. গিটহাবের ইউজারনেম এবং রেপোজিটরি নাম এখানে দিন
-    const githubUser = "YOUR_GITHUB_USERNAME"; 
-    const repoName = "YOUR_REPO_NAME"; 
+    // ১. গিটহাবের ইউজারনেম, রেপোজিটরি নাম এবং ব্রাঞ্চ এখানে দিন
+    const githubUser = "es-chamber-org-sa-gov";
+    const repoName = "chember";
+    const branchName = "main"; // আপনার রিপোর ব্রাঞ্চ "master" হলে এটা পরিবর্তন করুন
+    const folderName = "File"; // রিপোর ভেতরের ফোল্ডারের নাম (case-sensitive)
 
     // ২. URL থেকে ছবির নাম উদ্ধার করা (?image=filename.jpg)
     const urlParams = new URLSearchParams(window.location.search);
@@ -51,13 +53,16 @@
     const container = document.getElementById('image-container');
 
     if (imageName) {
-        // গিটহাবের র-ফাইল (Raw File) এর লিংক তৈরি করা
-        const imageUrl = `https://github.com/es-chamber-org-sa-gov/chember/tree/main/File`;
-        
+        // ছবির নাম URL-এ নিরাপদভাবে এনকোড করা (স্পেস বা বিশেষ অক্ষর থাকলেও কাজ করবে)
+        const encodedImageName = encodeURIComponent(imageName);
+
+        // গিটহাবের raw ফাইল লিংক তৈরি করা
+        const imageUrl = `https://raw.githubusercontent.com/${githubUser}/${repoName}/${branchName}/${folderName}/${encodedImageName}`;
+
         titleElement.innerText = "আপনার ফাইল:";
-        container.innerHTML = `<img src="${imageUrl}" alt="${imageName}" onerror="this.onerror=null; alert('ফাইলটি পাওয়া যায়নি!')">`;
+        container.innerHTML = `<img src="${imageUrl}" alt="${imageName}" onerror="this.onerror=null; document.getElementById('title').innerText='দুঃখিত, ফাইলটি পাওয়া যায়নি!'; this.remove();">`;
     } else {
-        titleElement.innerText = "দয়া করে কিউআর কোড স্ক্যান করে সঠিক লিংক দিয়ে প্রবেশ করুন।";
+        titleElement.innerText = "দয়া করে কিউআর কোড স্ক্যান করে সঠিক লিংক দিয়ে প্রবেশ করুন।";
     }
 </script>
 
